@@ -1,0 +1,20 @@
+# secrets
+.env
+*.key
+credentials*.json
+# python / node
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+dist/
+# large geodata (keep out of git)
+data/*
+!data/.gitkeep
+*.tif
+*.tiff
+*.SAFE/
+*.zip
+.DS_Store
+.idea/
+.vscode/
