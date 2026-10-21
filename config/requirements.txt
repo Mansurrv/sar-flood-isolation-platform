@@ -1,0 +1,14 @@
+# Backend
+fastapi
+uvicorn
+pydantic
+python-dotenv
+
+# Geospatial & GEE
+earthengine-api
+geopandas
+osmnx
+rasterio
+
+# Testing
+pytest

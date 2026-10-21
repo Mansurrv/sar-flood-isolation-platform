@@ -1,20 +1,60 @@
-# secrets
+# ==========================================
+# SECRETS & CREDENTIALS (CRITICAL)
+# ==========================================
 .env
+.env.*
+!.env.example
+config/.env
+config/.env.*
+!config/.env.example
+*.pem
 *.key
+*service-account*.json
 credentials*.json
-# python / node
-__pycache__/
-*.pyc
-.venv/
-node_modules/
-dist/
-# large geodata (keep out of git)
+client_secret*.json
+*.pfx
+*.secret
+*.token
+
+# ==========================================
+# DATA & GEOSPATIAL FILES (Heavy files)
+# ==========================================
 data/*
 !data/.gitkeep
 *.tif
 *.tiff
-*.SAFE/
-*.zip
-.DS_Store
-.idea/
+*.gpkg
+*.shp
+*.shx
+*.dbf
+*.prj
+
+# ==========================================
+# PYTHON
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==========================================
+# NODE.JS / FRONTEND
+# ==========================================
+node_modules/
+build/
+dist/
+coverage/
+npm-debug.log*
+
+# ==========================================
+# IDE & OS
+# ==========================================
 .vscode/
+.idea/
+.DS_Store
+Thumbs.db
