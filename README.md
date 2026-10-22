@@ -37,11 +37,11 @@ priorities.
 
 ## 4. Team Members and Responsibilities
 
-| Участник | Роль | Ответственность |
-|----------|------|-----------------|
-| Backend / SAR Lead | GEE pipeline, threshold algorithms, metrics, FastAPI |
-| Frontend / GIS / PM Lead | React UI, OSM road graph, isolation count, YouTrack |
-| Supervisor | Methodology, review, acceptance |
+| Name | Role | Responsibilities |
+|------|------|------------------|
+| Mansur (Mansurrv) | Backend / SAR Lead | GEE pipeline, threshold algorithms, metrics, FastAPI |
+| Nurdaulet (nvrdavlet) | Frontend / GIS / PM Lead | React UI, OSM road graph, isolation count, YouTrack |
+| *[Supervisor Name]* | Supervisor | Methodology, review, acceptance |
 
 ---
 
@@ -65,7 +65,7 @@ priorities.
 | Component | Status |
 |-----------|--------|
 | Project proposal | ✅ |
-| Evidence of relevance (interviews) | ✅ |
+| Evidence of relevance | ✅ |
 | Literature review | ✅ |
 | Existing system comparison | ✅ |
 | Technology comparison | ✅ |
@@ -143,44 +143,3 @@ sar-flood-isolation-platform/
 │   └── unit/                # Unit tests
 ├── .gitignore               # Secret, data, build, and local-file exclusions
 └── README.md
-```
-
-Keep editable diagram sources beside their exports. Add only synthetic or
-sanitized materials to `tests/fixtures/`; keep credentials and private data
-outside the repository. The current `src/` and `tests/` directories are
-scaffolding; runnable application code and automated tests have not been added.
-
-## 9. Setup, Execution, and Testing
-
-> ⚠️ **Note:** These instructions will be fully activated **as soon as
-> runnable code is available**. Currently only the environment skeleton
-> exists.
-
-### Prerequisites
-
-- Python 3.11+
-- Node.js 20+
-- Google Earth Engine account
-- Docker + Docker Compose (optional)
-
-### Setup
-
-```bash
-# 1. Clone
-git clone https://github.com/mansurrv/sar-flood-isolation-platform.git
-cd sar-flood-isolation-platform
-
-# 2. Backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r config/requirements.txt
-
-# 3. Environment (placeholder values only)
-cp config/.env.example config/.env
-# Replace placeholders locally; never commit config/.env or credential files.
-
-```
-
-The backend and frontend commands become runnable after their application
-manifests and code are added. Run automated tests with `pytest` once tests are
-present.
