@@ -1,4 +1,4 @@
-# 04. Existing Systems Comparison
+# 03. Existing Systems Comparison
 
 ---
 
@@ -20,13 +20,13 @@ Five systems were selected because they represent the main ways in which satelli
 | **S4** | **Google Earth Engine (with community/UN-SPIDER flood scripts)** | Cloud geoprocessing platform | The environment in which most reviewed studies implement thresholding (Johary et al., 2023; Liang et al., 2025; Amoah, 2026) |
 | **S5** | **Sentinel Hub / Copernicus Data Space Ecosystem (EO Browser)** | Cloud imagery access and on-the-fly processing service | The most common interactive way to view and script Sentinel-1 imagery without local processing |
 
-Desktop software (ESA SNAP, QGIS) is not treated as a "system" here because it provides generic tools rather than a flood-mapping service; it is considered as a technology alternative in [`05_technology_comparison.md`](05_technology_comparison.md).
+Desktop software (ESA SNAP, QGIS) is not treated as a "system" here because it provides generic tools rather than a flood-mapping service; it is considered as a technology alternative in [`04_technology_comparison.md`](04_technology_comparison.md).
 
 ---
 
 ## 3. Comparison Criteria
 
-Ten criteria were derived from the needs of the target users (emergency services, GIS analysts, regional authorities) and from the research gap identified in [`03_literature_review.md`](03_literature_review.md).
+Ten criteria were derived from the needs of the target users (emergency services, GIS analysts, regional authorities) and from the research gap identified in [`02_literature_review.md`](02_literature_review.md).
 
 | ID | Criterion | What is assessed | Link to project need |
 |----|-----------|------------------|---------------------|
@@ -73,7 +73,7 @@ Counting ✅ = 2, ◐ = 1, ❌ = 0 (maximum 20):
 | S5 Sentinel Hub / CDSE | 10 | Data access, visualisation | No flood product; cost beyond quota |
 | **Proposed platform** | **20** (target) | Comparison + isolation | Not operational at national scale (scope) |
 
-The score is a design-target comparison, not a measured benchmark: the proposed platform's ratings are **requirements to be verified** (see [`06_requirements.md`](06_requirements.md) and [`09_verification_plan.md`](09_verification_plan.md)), whereas the ratings of S1–S5 are taken from their documentation.
+The score is a design-target comparison, not a measured benchmark: the proposed platform's ratings are **requirements to be verified** (see [`05_requirements.md`](05_requirements.md) and [`07_verification_plan.md`](07_verification_plan.md)), whereas the ratings of S1–S5 are taken from their documentation.
 
 ---
 
