@@ -1,4 +1,4 @@
-# 06. Requirements Specification
+# 05. Requirements Specification
 
 ---
 
@@ -6,7 +6,7 @@
 
 ### 1.1 Purpose
 
-This document specifies the functional (FR) and non-functional (NFR) requirements of the SAR Flood Mapping Platform. Every requirement has a unique identifier, a priority, a source, and **acceptance criteria that make its fulfilment verifiable**. The verification method for each requirement is detailed in [`09_verification_plan.md`](09_verification_plan.md); the components that realise each requirement are shown in [`07_architecture.md`](07_architecture.md).
+This document specifies the functional (FR) and non-functional (NFR) requirements of the SAR Flood Mapping Platform. Every requirement has a unique identifier, a priority, a source, and **acceptance criteria that make its fulfilment verifiable**. The verification method for each requirement is detailed in [`07_verification_plan.md`](07_verification_plan.md); the components that realise each requirement are shown in [`06_architecture.md`](06_architecture.md).
 
 ### 1.2 Priority scheme (MoSCoW)
 
@@ -22,8 +22,8 @@ This document specifies the functional (FR) and non-functional (NFR) requirement
 | Code | Source | Nature |
 |------|--------|--------|
 | RQ | Research question, sub-questions and hypotheses (Assignment 2) | Verified by research design |
-| LIT | Literature review findings (Assignment 1; [`03`](03_literature_review.md)) | Verified by published evidence |
-| SYS | Gaps of existing systems ([`04`](04_existing_systems_comparison.md)) | Verified by system documentation |
+| LIT | Literature review findings (Assignment 1; [`03`](02_literature_review.md)) | Verified by published evidence |
+| SYS | Gaps of existing systems ([`04`](03_existing_systems_comparison.md)) | Verified by system documentation |
 | USR | User evidence ([`02`](02_evidence_of_relevance.md)) and ACAPS (2024) situation report | Verified where documented in `02`; otherwise marked as assumption |
 | ENG | Engineering constraints (team, time, budget, technology decisions) | Team decision |
 | ASM | Team assumption not yet validated with users | **Assumption** — to be confirmed |
@@ -195,4 +195,4 @@ This document specifies the functional (FR) and non-functional (NFR) requirement
 
 - ACAPS. (2024, April 23). *Kazakhstan: Floods* (Briefing note).
 - EODC. (n.d.). *GFM Product User Manual – Technical overview*. https://extwiki.eodc.eu/GFM/PUM/TechnicalOverview
-- All scientific sources as listed in [`03_literature_review.md`](03_literature_review.md).
+- All scientific sources as listed in [`02_literature_review.md`](02_literature_review.md).
