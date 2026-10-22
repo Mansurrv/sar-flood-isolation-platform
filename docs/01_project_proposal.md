@@ -1,8 +1,5 @@
 # 01. Project Proposal — SAR Flood Mapping Platform
 
-> **Branch:** `DIP-1-project-proposal` · **File:** `docs/01_project_proposal.md`
-> **Research basis:** Assignment 1 (Research Topic Selection and Literature Review) and Assignment 2 (Developing a Research Question), Aitynbek & Serikbai, group SE-2423.
-
 ---
 
 ## 1. Project Identification
