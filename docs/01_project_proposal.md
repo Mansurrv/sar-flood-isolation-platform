@@ -93,7 +93,7 @@ To design, implement and evaluate an open, automated web platform that maps floo
 
 ## 7. Objectives
 
-The objectives combine the research objectives of Assignment 2 (O1–O4) with the engineering objectives needed to deliver them as a platform (O5–O7). Each objective is traceable to requirements in [`06_requirements.md`](06_requirements.md).
+The objectives combine the research objectives of Assignment 2 (O1–O4) with the engineering objectives needed to deliver them as a platform (O5–O7). Each objective is traceable to requirements in [`05_requirements.md`](05_requirements.md).
 
 | ID | Objective | Measurable result |
 |----|-----------|-------------------|
