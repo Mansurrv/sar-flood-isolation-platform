@@ -1,8 +1,5 @@
 # 03. Literature Review
 
-> **Branch:** `DIP-2-literature-review` · **File:** `docs/03_literature_review.md`
-> **Research basis:** Assignment 1 (Sections 5–7) and Assignment 2 (Section 2), Aitynbek & Serikbai, SE-2423.
-
 ---
 
 ## 1. Purpose and Scope
