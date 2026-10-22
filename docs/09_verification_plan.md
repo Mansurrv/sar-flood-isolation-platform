@@ -1,8 +1,5 @@
 # 09. Verification and Evaluation Plan
 
-> **Branch:** `DIP-7-verification-plan` · **File:** `docs/09_verification_plan.md`
-> **Basis:** requirements ([`06_requirements.md`](06_requirements.md)), architecture ([`07_architecture.md`](07_architecture.md)), research question and hypotheses (Assignment 2), validation weaknesses identified in the literature (Assignment 1, Section 6).
-
 ---
 
 ## 1. Purpose and Scope
