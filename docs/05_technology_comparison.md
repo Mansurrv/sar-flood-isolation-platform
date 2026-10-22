@@ -1,8 +1,5 @@
 # 05. Technology Comparison
 
-> **Branch:** `DIP-4-technology-comparison` · **File:** `docs/05_technology_comparison.md`
-> **Basis:** project requirements ([`06_requirements.md`](06_requirements.md)), research design from Assignments 1–2, and the existing-systems analysis ([`04_existing_systems_comparison.md`](04_existing_systems_comparison.md)).
-
 ---
 
 ## 1. Purpose and Method
