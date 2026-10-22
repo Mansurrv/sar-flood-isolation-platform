@@ -1,4 +1,4 @@
-# 07. Architecture and Diagrams
+# 06. Architecture and Diagrams
 
 ---
 
