@@ -1,9 +1,5 @@
 # 07. Architecture and Diagrams
 
-> **Branch:** `DIP-6-architecture` · **File:** `docs/07_architecture.md`
-> **Basis:** requirements ([`06_requirements.md`](06_requirements.md)), technology decisions ([`05_technology_comparison.md`](05_technology_comparison.md)), research design (Assignments 1–2).
-> Diagrams are written in Mermaid and render directly on GitHub.
-
 ---
 
 ## 1. Architectural Overview
@@ -52,7 +48,7 @@ flowchart TB
 
     SYS["<b>SAR Flood Mapping Platform</b><br/>[Software System]<br/>Maps flood extent from Sentinel-1 SAR with three<br/>thresholding methods, evaluates accuracy and<br/>determines settlements isolated from the road network."]:::system
 
-    GEE["<b>Google Earth Engine</b><br/>[External System]<br/>Sentinel-1 GRD, Sentinel-2, DEM, MERIT Hydro HAND,<br/>JRC Global Surface Water; server-side computation."]:::external
+    GEE["<b>Google Earth Engine</b><br/>[External System]<br/>Sentinel-1 GRD, Sentinel-2, DEM, MERIT Hydro HAND,<br/>JRC Global Surface Water, server-side computation."]:::external
     OSM["<b>OpenStreetMap / Overpass API</b><br/>[External System]<br/>Road network, settlements (place=*),<br/>administrative centres."]:::external
     REF["<b>Reference Flood Data</b><br/>[External Data Source]<br/>Analyst-prepared reference masks,<br/>CEMS Rapid Mapping / GFM products,<br/>Sen1Floods11 (cross-check)."]:::external
 
@@ -326,7 +322,7 @@ sequenceDiagram
     G-->>O: Polygons (GeoJSON)
     O->>N: Build road graph G (once), analyse isolation per mask
     N-->>O: Settlement statuses, comparison, priority list
-    O->>S: Store results, provenance; status SUCCEEDED
+    O->>S: Store results and provenance, status SUCCEEDED
     loop every 5 s until terminal status
         W->>A: GET /api/v1/runs/{id}
         A-->>W: status + stage progress
