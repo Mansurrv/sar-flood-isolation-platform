@@ -1,8 +1,5 @@
 # 04. Existing Systems Comparison
 
-> **Branch:** `DIP-3-existing-systems` · **File:** `docs/04_existing_systems_comparison.md`
-> **Research basis:** Assignment 1 (Sections 2, 6, 7), Assignment 2 (Section 2); system documentation listed in the references.
-
 ---
 
 ## 1. Purpose
