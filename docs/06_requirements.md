@@ -1,8 +1,5 @@
 # 06. Requirements Specification
 
-> **Branch:** `DIP-5-requirements` · **File:** `docs/06_requirements.md`
-> **Basis:** research question, aim and objectives (Assignment 2), literature gap (Assignment 1), existing-systems gaps ([`04`](04_existing_systems_comparison.md)), technology decisions ([`05`](05_technology_comparison.md)), user evidence ([`02`](02_evidence_of_relevance.md)).
-
 ---
 
 ## 1. Introduction
