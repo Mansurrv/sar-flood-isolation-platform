@@ -1,126 +1,86 @@
-# UX Prototype
+# Analysis Interface
 
-## Purpose
+## Application
 
-The prototype demonstrates how emergency services, local authorities, and GIS
-analysts could compare SAR-derived flood extents and inspect possible loss of
-road access to settlements. The case study is the 2024 spring floods in
-Kazakhstan. It is a user-interface concept, not an operational mapping tool.
+The React/Vite frontend in [`../src/frontend/`](../src/frontend/) submits
+Sentinel-1 analysis jobs to the FastAPI service in
+[`../src/backend/app/`](../src/backend/app/). Users provide:
 
-Open [`prototype/index.html`](prototype/index.html) in a browser. It is a
-standalone responsive mockup and does not require a frontend build, account,
-backend service, or geospatial data.
+- An AOI as a GeoJSON `Polygon` or `MultiPolygon` in longitude/latitude.
+- Inclusive Sentinel-1 start and end dates.
+- A polarisation and one algorithm, DIP-14 through DIP-19.
+- Algorithm-specific parameters; DIP-18 additionally requires a reference
+  mask Earth Engine asset ID.
 
-> **Important:** The map is schematic and every result is a placeholder. The
-> prototype does not load Sentinel-1 scenes, call Google Earth Engine,
-> calculate flood masks, or identify real isolated settlements. Do not use it
-> for evacuation or emergency-response decisions.
+The UI polls the asynchronous run endpoint every three seconds, shows the
+processing stage and progress, and creates layer toggles from layers actually
+returned by the API. Earth Engine tile URLs render raster flood masks; GeoJSON
+layers show polygons, roads and settlement access. Settlement popups show the
+name and access classification.
 
-## Intended users and scenarios
+## API
 
-### Emergency services and local authorities
-
-1. Select an area of interest and an available Sentinel-1 scene.
-2. Choose a threshold method and request a comparison.
-3. Review flood extent together with roads and settlements.
-4. Identify access routes that need further review and verify them against
-   reference data before using results for planning.
-
-### GIS analysts and researchers
-
-1. Select the same study area and scene for each comparison.
-2. Compare Otsu, local/adaptive, and baseline-calibrated methods.
-3. Select a method in the comparison table to highlight it and update the
-   selected-method label.
-4. Compare flood extent, settlement isolation, and reference agreement after
-   a real processing service is connected.
-
-## Interface and interaction
-
-The standalone page at [`prototype/index.html`](prototype/index.html) contains:
-
-- **Analysis controls:** area-of-interest and Sentinel-1 scene selectors, three
-  threshold-method choices, and a comparison action.
-- **Map concept:** candidate flood extent, road network, and settlement marker
-  with a legend. The illustration is deliberately labelled as schematic and
-  has no real geographic coordinates.
-- **Summary indicators:** space for flood area, potentially isolated
-  settlements, and agreement with reference data. Values remain blank until
-  validated analysis is available.
-- **Method comparison:** a table for comparing the three methods and selecting
-  which method to inspect.
-- **Input and processing feedback:** missing inputs are identified; submitting
-  selected sample inputs explains that the static prototype does not perform
-  processing.
-
-The layout adapts to narrow screens. Controls use native form elements and
-visible labels, and status messages are announced through a live region.
-
-## Proposed API interaction
-
-The controls represent the following example service contract. These routes
-are proposals only; no API implementation is currently included in this
-repository.
+Create a run:
 
 ```http
-POST /api/v1/analyses
+POST /api/runs
 Content-Type: application/json
 ```
 
 ```json
 {
-  "area_of_interest_id": "sample-area",
-  "sentinel1_scene_id": "sample-scene",
-  "methods": ["otsu", "local", "baseline_calibrated"],
-  "road_network_source": "openstreetmap"
+  "algorithm": "DIP-14",
+  "aoi_coordinates": {
+    "type": "Polygon",
+    "coordinates": [[[71.0, 51.0], [71.1, 51.0], [71.1, 51.1], [71.0, 51.1], [71.0, 51.0]]]
+  },
+  "date_start": "2024-04-01",
+  "date_end": "2024-04-05",
+  "polarisation": "VV",
+  "parameters": {"histogram_bins": 256}
 }
 ```
 
-Example accepted response:
-
-```json
-{
-  "analysis_id": "example-analysis-id",
-  "status": "queued",
-  "message": "Results will be available when processing is complete."
-}
-```
+Poll the returned run ID:
 
 ```http
-GET /api/v1/analyses/{analysis_id}
+GET /api/runs/{run_id}
 ```
 
-Example result shape (values are illustrative, not measured):
+The response contains `status`, `stage`, `progress`, the complete submitted
+request for reproducibility, result layers, metrics and scene provenance.
+Failures are returned as a terminal `failed` status with an error message.
 
-```json
-{
-  "analysis_id": "example-analysis-id",
-  "status": "completed",
-  "results": [
-    {
-      "method": "otsu",
-      "flood_extent_area_km2": null,
-      "isolated_settlement_count": null,
-      "reference_agreement": null,
-      "flood_mask_url": null
-    }
-  ],
-  "limitations": ["Example response shape only; values are not measured."]
-}
-```
+## Processing behavior
 
-An emergency planner would use the map and summary to identify areas for
-review, while an analyst would compare method outputs and validate them
-against reference data. Neither user should treat missing OpenStreetMap roads
-or settlements as proof that a real route or settlement does not exist.
+- **DIP-14:** median Sentinel-1 GRD composite and global Otsu flood threshold.
+- **DIP-15:** per-tile histograms, Otsu thresholds and Ashman’s D validation;
+  falls back to global Otsu if no tile passes.
+- **DIP-16:** compares the requested composite with an equal-length composite
+  immediately preceding its start date.
+- **DIP-17:** computes VV/VH Otsu masks, configurable AND/OR fusion and
+  sensitivity offsets.
+- **DIP-18:** evaluates the Otsu mask against a configured Earth Engine
+  reference-mask asset.
+- **DIP-19:** removes OSM road edges intersecting the Otsu flood polygons,
+  builds connected components and classifies OSM settlements against the
+  largest remaining component. This is the configured connectivity reference,
+  not a routing analysis to named emergency hubs.
 
-## Acceptance checklist
+The Earth Engine Python API is isolated in `GeeClient`. Authentication uses
+Application Default Credentials or service-account settings supplied through
+`config/.env`; private key files must be mounted or stored outside the
+repository. Run parameters, dates, asset/scene IDs and result metadata are
+stored in the SQLite run registry.
 
-- [x] Show the workflow from area and scene selection to method comparison.
-- [x] Include flood-extent, road-network, and settlement concepts.
-- [x] Represent both planning and analyst scenarios.
-- [x] Provide an example request and response for future API integration.
-- [x] Clearly label schematic map content and avoid presenting fake results.
-- [x] Work responsively as a standalone HTML page without external assets.
-- [ ] Connect the controls to a real API and validated study-area data in a
-      later implementation phase.
+## Scope and limitations
+
+The interface and API execute remote Earth Engine and OpenStreetMap processing
+when credentials and network access are configured. OSM coverage can be
+incomplete; Earth Engine requests can fail due to quotas, timeouts or missing
+imagery. DIP-16 uses a simple preceding-period baseline, DIP-18 requires a
+compatible reference asset, and DIP-19 uses largest-component connectivity.
+These outputs require research validation before any operational use.
+
+[`prototype/index.html`](prototype/index.html) remains as a standalone,
+static design artifact and is not connected to this API.
