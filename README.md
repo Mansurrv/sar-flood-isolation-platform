@@ -112,6 +112,7 @@ priorities.
   - [09. Interviews](docs/09_interviews.md)
   - [10. UX Prototype](docs/10_ux_prototype.md)
   - [11. Project Management & Risks](docs/11_project_management_risks.md)
+  - [12. Supervisor Feedback](docs/12_supervisor_feedback.md)
 - **Architecture Decision Records:** [`docs/adr/`](docs/adr/)
 - **Diagrams:** [`docs/diagrams/`](docs/diagrams/)
 - **Prototype:** [`docs/prototype/`](docs/prototype/)
@@ -137,6 +138,7 @@ sar-flood-isolation-platform/
 │   ├── 09_interviews.md
 │   ├── 10_ux_prototype.md
 │   ├── 11_project_management_risks.md
+│   ├── 12_supervisor_feedback.md
 │   ├── adr/                 # Architecture decision records
 │   ├── diagrams/
 │   │   ├── source/          # Editable Mermaid / draw.io sources
