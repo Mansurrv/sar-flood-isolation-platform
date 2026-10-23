@@ -75,11 +75,9 @@ priorities.
 | Verification & evaluation plan | ✅ |
 | Project management (YouTrack) | ✅ |
 | Supervisor feedback | ✅ |
-| Runnable code / web platform | ⏳ next phase |
-
-> ⚠️ **Note:** Full application is **not required** at Pre-defense 1. The
-> repository demonstrates that analysis, design, planning, and management have
-> already taken place. Code and runnable setup will be added in the next phase.
+| Algorithm reference implementations | Available on DIP-14—19 feature branches |
+| GEE processing pipeline | DIP-14—19 orchestration implemented in FastAPI backend |
+| Frontend / asynchronous processing API | Implemented; requires configured GEE and network access |
 
 ---
 
@@ -145,32 +143,29 @@ sar-flood-isolation-platform/
 │   │   └── exports/         # Readable SVG / PNG / PDF exports
 │   └── prototype/           # Interactive UX prototype and documentation
 ├── src/
-│   ├── backend/             # FastAPI application
-│   ├── frontend/            # React application
-│   └── processing/          # SAR and road-network processing components
+│   ├── backend/app/         # FastAPI, GEE adapter, analysis pipeline and SQLite registry
+│   ├── frontend/            # React + Vite + Leaflet application
+│   └── processing/          # Algorithm implementations in feature branches
 ├── tests/
 │   ├── fixtures/            # Small synthetic or sanitized test materials
-│   └── unit/                # Unit tests
+│   └── unit/                # Algorithm and API tests
 ├── .gitignore               # Secret, data, build, and local-file exclusions
 └── README.md
 ```
 
 Keep editable diagram sources beside their exports. Add only synthetic or
 sanitized materials to `tests/fixtures/`; keep credentials and private data
-outside the repository. The current `src/` and `tests/` directories are
-scaffolding; runnable application code and automated tests have not been added.
+outside the repository. Real results depend on Sentinel-1 availability,
+configured Earth Engine access and OpenStreetMap coverage for the selected AOI.
 
 ## 9. Setup, Execution, and Testing
-
-> ⚠️ **Note:** These instructions will be fully activated **as soon as
-> runnable code is available**. Currently only the environment skeleton
-> exists.
 
 ### Prerequisites
 
 - Python 3.11+
 - Node.js 20+
-- Google Earth Engine account
+- Google Earth Engine project with API access and suitable authentication
+- Network access to Earth Engine, OpenStreetMap Overpass and OSM tile servers
 - Docker + Docker Compose (optional)
 
 ### Setup
@@ -183,14 +178,46 @@ cd sar-flood-isolation-platform
 # 2. Backend
 python -m venv .venv
 source .venv/bin/activate
-pip install -r config/requirements.txt
-
-# 3. Environment (placeholder values only)
+pip3 install -r config/requirements.txt
 cp config/.env.example config/.env
-# Replace placeholders locally; never commit config/.env or credential files.
+# Set GEE_PROJECT_ID. For a service account, set GEE_SERVICE_ACCOUNT and
+# GEE_KEY_FILE to a key file stored outside the repository.
+# Alternatively configure Google Application Default Credentials.
 
 ```
 
-The backend and frontend commands become runnable after their application
-manifests and code are added. Run automated tests with `pytest` once tests are
-present.
+### Run the application
+
+Start the API from the repository root (the API reads `config/.env`):
+
+```bash
+python -m uvicorn src.backend.app.main:app --reload --port 8000
+```
+
+In a second terminal, start the frontend:
+
+```bash
+cd src/frontend
+npm install
+npm run dev
+```
+
+Open the Vite URL (normally <http://localhost:5173>). Paste a valid GeoJSON
+Polygon/MultiPolygon AOI, choose dates, polarisation and an algorithm, then run
+the analysis. The frontend posts to `POST /api/runs` and polls
+`GET /api/runs/{run_id}` every three seconds. Completed responses include
+Earth Engine XYZ flood-mask tiles, GeoJSON layers and algorithm metrics when
+available. DIP-16 derives an equal-length baseline window immediately before
+the requested period. DIP-18 requires a reference-mask Earth Engine asset ID.
+DIP-19 downloads OSM roads and place features and treats the largest remaining
+connected road component as the connectivity reference.
+
+Earth Engine computation, OSM data completeness and quota limits affect
+results. Review the recorded parameters and provenance before interpreting
+them; these research outputs are not certified for emergency operations.
+
+Run the Python tests from the repository root:
+
+```bash
+python -m pytest tests/unit -q
+```
