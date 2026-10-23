@@ -99,13 +99,12 @@ priorities.
 
 ## 7. Links
 
-- **YouTrack Project:** https://aluamyrzakerimova1.youtrack.cloud/projects/DIP
+- **YouTrack Project:** https://sar-flood-isolation.youtrack.cloud/agiles/204-0/current
 
 - **Documentation:** [`docs/`](docs/)
-  - [UX Prototype](docs/08_ux_prototype.md)
-  - [Standalone interactive mockup](docs/prototype/index.html)
-  - Proposal, research, requirements, and other planning deliverables are
-    tracked in YouTrack.
+  - [11. Project Management & Risks](docs/11_project_management_risks.md)
+  - Proposal, research, requirements, architecture, UX, and verification
+    deliverables are tracked in their corresponding YouTrack issues.
 - **Architecture Decision Records:** [`docs/adr/`](docs/adr/)
 - **Diagrams:** [`docs/diagrams/`](docs/diagrams/)
 - **Prototype:** [`docs/prototype/`](docs/prototype/)
@@ -125,9 +124,7 @@ sar-flood-isolation-platform/
 │   ├── diagrams/
 │   │   ├── source/          # Editable Mermaid / draw.io sources
 │   │   └── exports/         # Readable SVG / PNG / PDF exports
-│   ├── prototype/
-│   │   └── index.html       # Standalone interactive UX mockup
-│   └── 08_ux_prototype.md   # UX scenarios and proposed API contract
+│   └── 11_project_management_risks.md
 ├── src/
 │   ├── backend/             # FastAPI application
 │   ├── frontend/            # React application
