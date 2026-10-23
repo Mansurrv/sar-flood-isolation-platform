@@ -9,7 +9,8 @@ def test_finds_threshold_between_two_backscatter_classes():
 
     result = global_otsu(values, bins=256)
 
-    assert -20.0 < result.threshold <= -5.0
+    expected_first_split = -20.0 + 15.0 / 256.0
+    assert result.threshold == pytest.approx(expected_first_split, abs=0.1)
     assert result.flood_mask[:50].all()
     assert not result.flood_mask[50:].any()
     assert result.valid_count == 100
