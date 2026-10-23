@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flood Isolation Assessment — UX Prototype</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #14232b;
+      --muted: #60727b;
+      --line: #d8e2e5;
+      --surface: #fff;
+      --canvas: #f2f6f6;
+      --navy: #12313d;
+      --teal: #147d79;
+      --teal-soft: #e0f3ef;
+      --amber: #a96412;
+      --amber-soft: #fff2d9;
+      --blue: #3477a7;
+      --shadow: 0 12px 30px rgb(18 49 61 / 8%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    button, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      align-items: center;
+      background: var(--navy);
+      color: #fff;
+      display: flex;
+      gap: 14px;
+      min-height: 68px;
+      padding: 12px clamp(18px, 4vw, 56px);
+    }
+
+    .brand-mark {
+      align-items: center;
+      background: #a9e6d9;
+      border-radius: 10px;
+      color: #12313d;
+      display: flex;
+      font-size: 13px;
+      font-weight: 800;
+      height: 38px;
+      justify-content: center;
+      letter-spacing: .04em;
+      width: 38px;
+    }
+
+    .brand { font-size: 14px; font-weight: 700; }
+    .topbar-spacer { flex: 1; }
+    .prototype-badge {
+      border: 1px solid rgb(255 255 255 / 34%);
+      border-radius: 999px;
+      color: #d6e8e8;
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 1440px;
+      padding: 30px clamp(16px, 4vw, 56px) 56px;
+    }
+
+    .page-heading {
+      align-items: flex-end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      margin: 0 0 5px;
+      text-transform: uppercase;
+    }
+
+    h1 { font-size: clamp(25px, 3vw, 34px); letter-spacing: -.04em; margin: 0; }
+    .subtitle { color: var(--muted); margin: 6px 0 0; max-width: 650px; }
+
+    .notice {
+      background: var(--amber-soft);
+      border: 1px solid #f0d6a4;
+      border-radius: 10px;
+      color: #71450e;
+      margin-bottom: 18px;
+      padding: 11px 14px;
+    }
+
+    .notice strong { margin-right: 4px; }
+
+    .workspace {
+      align-items: start;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: minmax(260px, 310px) minmax(0, 1fr);
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .controls { padding: 20px; }
+    .panel-title {
+      font-size: 15px;
+      font-weight: 750;
+      letter-spacing: -.01em;
+      margin: 0;
+    }
+
+    .panel-copy { color: var(--muted); font-size: 12px; margin: 4px 0 18px; }
+    .field { margin: 0 0 15px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+
+    select {
+      appearance: none;
+      background: #fff;
+      border: 1px solid #bfced2;
+      border-radius: 8px;
+      color: var(--ink);
+      min-height: 40px;
+      padding: 8px 34px 8px 10px;
+      width: 100%;
+    }
+
+    select:focus-visible, button:focus-visible {
+      outline: 3px solid #77c8bd;
+      outline-offset: 2px;
+    }
+
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      border-bottom: 1.5px solid var(--muted);
+      border-right: 1.5px solid var(--muted);
+      content: "";
+      height: 7px;
+      pointer-events: none;
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      transform: rotate(45deg);
+      width: 7px;
+    }
+
+    .method-options { display: grid; gap: 8px; }
+    .method-option {
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      display: flex;
+      gap: 9px;
+      padding: 10px;
+    }
+
+    .method-option:has(input:checked) {
+      background: #f0faf8;
+      border-color: #69aaa3;
+      box-shadow: inset 0 0 0 1px #69aaa3;
+    }
+
+    .method-option input { accent-color: var(--teal); margin: 3px 0 0; }
+    .method-option strong { display: block; font-size: 12px; }
+    .method-option small { color: var(--muted); display: block; font-size: 11px; margin-top: 2px; }
+
+    .primary-button {
+      background: var(--teal);
+      border: 0;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 750;
+      margin-top: 5px;
+      min-height: 44px;
+      padding: 10px 14px;
+      width: 100%;
+    }
+
+    .primary-button:hover { background: #0d6965; }
+    .control-footnote { color: var(--muted); font-size: 11px; margin: 10px 0 0; }
+
+    .results { min-width: 0; }
+    .map-panel { overflow: hidden; }
+    .map-heading {
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      padding: 15px 18px;
+    }
+
+    .map-heading p { color: var(--muted); font-size: 12px; margin: 3px 0 0; }
+    .map-tools { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip {
+      background: #f2f6f6;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #41555d;
+      font-size: 11px;
+      padding: 4px 9px;
+      white-space: nowrap;
+    }
+
+    .map {
+      background: #e8efec;
+      min-height: 330px;
+      position: relative;
+    }
+
+    .map svg { display: block; height: 330px; width: 100%; }
+    .map-caption {
+      background: rgb(255 255 255 / 92%);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      bottom: 14px;
+      color: var(--muted);
+      font-size: 11px;
+      left: 14px;
+      padding: 6px 9px;
+      position: absolute;
+    }
+
+    .legend {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: grid;
+      gap: 7px;
+      padding: 9px 11px;
+      position: absolute;
+      right: 14px;
+      top: 14px;
+    }
+
+    .legend span { align-items: center; color: #42565e; display: flex; font-size: 11px; gap: 7px; }
+    .swatch { border-radius: 3px; display: inline-block; height: 10px; width: 13px; }
+    .swatch.flood { background: #55a7bb; opacity: .8; }
+    .swatch.road { background: #fff; border: 1px solid #75868b; }
+    .swatch.isolated { background: #e6a83f; border-radius: 50%; }
+
+    .status-row {
+      align-items: center;
+      background: #fbfcfc;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      justify-content: space-between;
+      padding: 12px 18px;
+    }
+
+    .status-label { color: var(--muted); font-size: 11px; }
+    .status-value { font-size: 12px; font-weight: 700; }
+    .status-dot { background: #d99b35; border-radius: 50%; display: inline-block; height: 8px; margin-right: 6px; width: 8px; }
+
+    .summary-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 14px 0;
+    }
+
+    .metric { padding: 14px 16px; }
+    .metric-label { color: var(--muted); font-size: 11px; margin: 0; }
+    .metric-value { font-size: 22px; font-weight: 800; letter-spacing: -.03em; margin: 6px 0 0; }
+    .metric-note { color: var(--muted); font-size: 10px; margin: 2px 0 0; }
+
+    .comparison { overflow: hidden; }
+    .comparison-head {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      justify-content: space-between;
+      padding: 16px 18px 12px;
+    }
+
+    .comparison-head p { color: var(--muted); font-size: 11px; margin: 0; }
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; min-width: 540px; width: 100%; }
+    th, td { border-top: 1px solid var(--line); padding: 11px 16px; text-align: left; }
+    th { color: var(--muted); font-size: 10px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+    td { font-size: 12px; }
+    tbody tr.active-method { background: #f0faf8; }
+    .waiting { color: var(--muted); font-style: italic; }
+    .view-button {
+      background: transparent;
+      border: 1px solid #b7c8cc;
+      border-radius: 7px;
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 9px;
+    }
+    .view-button:hover { background: #eef5f4; }
+
+    .toast {
+      background: var(--navy);
+      border-radius: 9px;
+      bottom: 20px;
+      box-shadow: var(--shadow);
+      color: #fff;
+      display: none;
+      left: 50%;
+      max-width: calc(100vw - 32px);
+      padding: 11px 15px;
+      position: fixed;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .toast.visible { display: block; }
+
+    @media (max-width: 850px) {
+      .workspace { grid-template-columns: 1fr; }
+      .controls { order: 0; }
+      .results { order: 1; }
+    }
+
+    @media (max-width: 560px) {
+      main { padding-top: 22px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .metric { padding: 12px 14px; }
+      .map, .map svg { min-height: 270px; height: 270px; }
+      .legend { top: 8px; right: 8px; }
+      .map-caption { bottom: 8px; left: 8px; }
+      .prototype-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">SAR</div>
+    <div class="brand">Flood Isolation Platform</div>
+    <div class="topbar-spacer"></div>
+    <span class="prototype-badge">Interactive UX prototype · DIP-10</span>
+  </header>
+
+  <main>
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Analysis workspace</p>
+        <h1>Flood isolation assessment</h1>
+        <p class="subtitle">Compare Sentinel-1 flood masks and inspect how road access to settlements may change.</p>
+      </div>
+      <span class="chip">Study area · Kazakhstan</span>
+    </div>
+
+    <aside class="notice" role="note">
+      <strong>Prototype preview.</strong>
+      The map and values below are illustrative UI placeholders, not observed flood results.
+    </aside>
+
+    <div class="workspace">
+      <section class="panel controls" aria-labelledby="controls-title">
+        <h2 class="panel-title" id="controls-title">Configure analysis</h2>
+        <p class="panel-copy">Choose a scene and method before comparing outputs.</p>
+
+        <div class="field">
+          <label for="area">Area of interest</label>
+          <div class="select-wrap">
+            <select id="area">
+              <option>Study area — select boundary</option>
+              <option>Aktobe Region (sample area)</option>
+              <option>West Kazakhstan Region (sample area)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="scene">Sentinel-1 scene</label>
+          <div class="select-wrap">
+            <select id="scene">
+              <option>Choose an available scene</option>
+              <option>Sample scene · VV/VH · date not selected</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset class="field" style="border:0;padding:0">
+          <legend class="field label" style="font-size:12px;font-weight:700;margin-bottom:6px">Threshold method</legend>
+          <div class="method-options">
+            <label class="method-option">
+              <input type="radio" name="method" value="otsu" checked>
+              <span><strong>Otsu</strong><small>Global histogram threshold</small></span>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="method" value="local">
+              <span><strong>Local / adaptive</strong><small>Spatially varying threshold</small></span>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="method" value="baseline">
+              <span><strong>Baseline-calibrated</strong><small>Threshold tuned to reference data</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <button class="primary-button" id="compare" type="button">Preview comparison</button>
+        <p class="control-footnote">A full analysis requires a selected AOI, valid scene, reference data, and configured processing service.</p>
+      </section>
+
+      <section class="results" aria-label="Analysis results preview">
+        <article class="panel map-panel">
+          <div class="map-heading">
+            <div>
+              <h2 class="panel-title">Flood extent and access</h2>
+              <p id="selected-method">Selected method: Otsu</p>
+            </div>
+            <div class="map-tools" aria-label="Visible layers">
+              <span class="chip">Sentinel-1</span>
+              <span class="chip">Road network</span>
+              <span class="chip">Settlements</span>
+            </div>
+          </div>
+          <div class="map" role="img" aria-label="Illustrative map with a flood area, road network, and one settlement marker">
+            <svg viewBox="0 0 900 330" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+                  <path d="M48 0H0V48" fill="none" stroke="#d4dfd9" stroke-width="1"/>
+                </pattern>
+                <pattern id="water" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(32)">
+                  <rect width="12" height="12" fill="#78bfca" fill-opacity=".54"/>
+                  <path d="M0 0V12" stroke="#3a91a2" stroke-opacity=".42" stroke-width="3"/>
+                </pattern>
+              </defs>
+              <rect width="900" height="330" fill="#e6eee7"/>
+              <rect width="900" height="330" fill="url(#grid)"/>
+              <path d="M0 78 132 42 216 76 294 48 395 92 472 65 580 95 682 51 788 80 900 32V0H0Z" fill="#d7e5d8"/>
+              <path d="M35 279 116 246 179 263 246 216 323 234 372 198 462 215 515 176 601 197 666 158 747 182 812 137 900 151" fill="none" stroke="#fff" stroke-width="9"/>
+              <path d="M35 279 116 246 179 263 246 216 323 234 372 198 462 215 515 176 601 197 666 158 747 182 812 137 900 151" fill="none" stroke="#819397" stroke-width="2"/>
+              <path d="M84 0 153 64 165 126 247 165 291 238 318 330M456 0 435 66 478 125 462 212 498 330M747 0 696 59 714 113 670 166 682 244 650 330" fill="none" stroke="#fff" stroke-width="7"/>
+              <path d="M84 0 153 64 165 126 247 165 291 238 318 330M456 0 435 66 478 125 462 212 498 330M747 0 696 59 714 113 670 166 682 244 650 330" fill="none" stroke="#9aa9a7" stroke-width="1.5"/>
+              <path d="M318 92c54-37 112-12 138 13 32 31 23 63 67 78 41 14 84-17 116 7 25 19 8 49-15 63-31 18-74 12-113 22-52 14-78 42-123 34-35-6-46-37-75-56-34-23-85-24-89-61-4-35 54-75 94-100Z" fill="url(#water)" stroke="#31899a" stroke-width="2"/>
+              <g fill="#fff" stroke="#647b7e" stroke-width="1.4">
+                <circle cx="146" cy="216" r="4"/><circle cx="235" cy="181" r="4"/><circle cx="373" cy="205" r="4"/>
+                <circle cx="555" cy="190" r="4"/><circle cx="699" cy="161" r="4"/><circle cx="781" cy="188" r="4"/>
+              </g>
+              <g transform="translate(608 239)">
+                <circle r="16" fill="#e6a83f" fill-opacity=".22"/>
+                <circle r="7" fill="#d89022" stroke="#fff" stroke-width="3"/>
+                <text x="14" y="4" fill="#30454b" font-size="12" font-weight="700">Settlement A · sample</text>
+              </g>
+              <text x="38" y="35" fill="#637b79" font-size="11" letter-spacing="1.4">ILLUSTRATIVE SCENE</text>
+            </svg>
+            <div class="legend" aria-label="Map legend">
+              <span><i class="swatch flood"></i>Candidate flood extent</span>
+              <span><i class="swatch road"></i>Road network</span>
+              <span><i class="swatch isolated"></i>Settlement to review</span>
+            </div>
+            <span class="map-caption">Schematic only · no geographic coordinates</span>
+          </div>
+          <div class="status-row">
+            <div><span class="status-label">Processing</span><br><span class="status-value"><i class="status-dot"></i><span id="processing-status">Not run</span></span></div>
+            <div><span class="status-label">Inputs</span><br><span class="status-value">AOI and scene required</span></div>
+            <div><span class="status-label">Interpretation</span><br><span class="status-value">Verify against reference data</span></div>
+          </div>
+        </article>
+
+        <div class="summary-grid" aria-label="Summary indicators">
+          <article class="panel metric">
+            <p class="metric-label">Flood extent</p>
+            <p class="metric-value" id="extent-value">—</p>
+            <p class="metric-note">Awaiting valid analysis</p>
+          </article>
+          <article class="panel metric">
+            <p class="metric-label">Potentially isolated settlements</p>
+            <p class="metric-value" id="isolated-value">—</p>
+            <p class="metric-note">Review access routes on the map</p>
+          </article>
+          <article class="panel metric">
+            <p class="metric-label">Reference agreement</p>
+            <p class="metric-value" id="agreement-value">—</p>
+            <p class="metric-note">Requires validation data</p>
+          </article>
+        </div>
+
+        <article class="panel comparison">
+          <div class="comparison-head">
+            <h2 class="panel-title">Method comparison</h2>
+            <p>Choose “Preview comparison” to see the interaction state.</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Method</th><th>Flood area</th><th>Isolated settlements</th><th>Action</th></tr>
+              </thead>
+              <tbody>
+                <tr data-method-row="otsu" class="active-method">
+                  <td>Otsu</td><td class="waiting">Not calculated</td><td class="waiting">Not calculated</td>
+                  <td><button class="view-button" type="button" data-select-method="otsu">View method</button></td>
+                </tr>
+                <tr data-method-row="local">
+                  <td>Local / adaptive</td><td class="waiting">Not calculated</td><td class="waiting">Not calculated</td>
+                  <td><button class="view-button" type="button" data-select-method="local">View method</button></td>
+                </tr>
+                <tr data-method-row="baseline">
+                  <td>Baseline-calibrated</td><td class="waiting">Not calculated</td><td class="waiting">Not calculated</td>
+                  <td><button class="view-button" type="button" data-select-method="baseline">View method</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const methodNames = {
+      otsu: "Otsu",
+      local: "Local / adaptive",
+      baseline: "Baseline-calibrated",
+    };
+    const methodInputs = [...document.querySelectorAll('input[name="method"]')];
+    const rows = [...document.querySelectorAll("[data-method-row]")];
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function selectMethod(method) {
+      const input = methodInputs.find((item) => item.value === method);
+      if (input) input.checked = true;
+      rows.forEach((row) => row.classList.toggle("active-method", row.dataset.methodRow === method));
+      document.getElementById("selected-method").textContent = `Selected method: ${methodNames[method]}`;
+    }
+
+    methodInputs.forEach((input) => input.addEventListener("change", () => selectMethod(input.value)));
+    document.querySelectorAll("[data-select-method]").forEach((button) => {
+      button.addEventListener("click", () => selectMethod(button.dataset.selectMethod));
+    });
+
+    document.getElementById("compare").addEventListener("click", () => {
+      const area = document.getElementById("area").selectedIndex;
+      const scene = document.getElementById("scene").selectedIndex;
+      if (area === 0 || scene === 0) {
+        document.getElementById("processing-status").textContent = "Inputs needed";
+        toast.textContent = "Select an area and a Sentinel-1 scene before running the analysis.";
+      } else {
+        document.getElementById("processing-status").textContent = "Prototype only";
+        toast.textContent = "This mockup does not run geospatial processing or produce flood estimates.";
+      }
+      toast.classList.add("visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("visible"), 4500);
+    });
+  </script>
+</body>
+</html>

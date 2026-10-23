@@ -103,16 +103,15 @@ priorities.
 
 - **Documentation:** [`docs/`](docs/)
   - [01. Project Proposal](docs/01_project_proposal.md)
-  - [02. Evidence of Relevance](docs/02_evidence_of_relevance.md)
-  - [03. Literature Review](docs/03_literature_review.md)
-  - [04. Existing Systems Comparison](docs/04_existing_systems_comparison.md)
-  - [05. Technology Comparison](docs/05_technology_comparison.md)
-  - [06. Requirements](docs/06_requirements.md)
-  - [07. Architecture](docs/07_architecture.md)
-  - [08. UX / Prototype](docs/08_ux_prototype.md)
-  - [09. Verification Plan](docs/09_verification_plan.md)
-  - [10. Project Management & Risks](docs/10_project_management_risks.md)
-  - [11. Supervisor Feedback](docs/11_supervisor_feedback.md)
+  - [02. Literature Review](docs/02_literature_review.md)
+  - [03. Existing Systems Comparison](docs/03_existing_systems_comparison.md)
+  - [04. Technology Comparison](docs/04_technology_comparison.md)
+  - [05. Requirements](docs/05_requirements.md)
+  - [06. Architecture](docs/06_architecture.md)
+  - [07. Verification Plan](docs/07_verification_plan.md)
+  - [09. Interviews](docs/09_interviews.md)
+  - [10. UX Prototype](docs/10_ux_prototype.md)
+  - [11. Project Management & Risks](docs/11_project_management_risks.md)
 - **Architecture Decision Records:** [`docs/adr/`](docs/adr/)
 - **Diagrams:** [`docs/diagrams/`](docs/diagrams/)
 - **Prototype:** [`docs/prototype/`](docs/prototype/)
@@ -128,12 +127,21 @@ sar-flood-isolation-platform/
 │   └── requirements.txt     # Python dependency definitions
 ├── data/                    # Local/private data; contents are ignored
 ├── docs/
+│   ├── 01_project_proposal.md
+│   ├── 02_literature_review.md
+│   ├── 03_existing_systems_comparison.md
+│   ├── 04_technology_comparison.md
+│   ├── 05_requirements.md
+│   ├── 06_architecture.md
+│   ├── 07_verification_plan.md
+│   ├── 09_interviews.md
+│   ├── 10_ux_prototype.md
+│   ├── 11_project_management_risks.md
 │   ├── adr/                 # Architecture decision records
 │   ├── diagrams/
 │   │   ├── source/          # Editable Mermaid / draw.io sources
 │   │   └── exports/         # Readable SVG / PNG / PDF exports
-│   ├── prototype/           # UX mockups and API examples
-│   └── 01–11_*.md           # Proposal, research, comparisons, requirements, design
+│   └── prototype/           # Interactive UX prototype and documentation
 ├── src/
 │   ├── backend/             # FastAPI application
 │   ├── frontend/            # React application
