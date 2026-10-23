@@ -38,6 +38,18 @@ def test_falls_back_to_global_threshold_when_no_tile_is_bimodal():
     assert not result.flood_mask.any()
 
 
+def test_detects_a_five_percent_water_class_in_a_bimodal_tile():
+    values = np.full((10, 10), -5.0)
+    values.flat[:5] = -20.0
+
+    result = local_adaptive_otsu(values, tile_shape=(10, 10), bins=256)
+
+    assert result.accepted_tiles == 1
+    assert not result.fallback
+    assert result.flood_mask.sum() == 5
+    assert -20.1 <= result.median_threshold <= -19.9
+
+
 def test_skips_masked_pixels_and_partial_edge_tiles():
     values = np.array(
         [
