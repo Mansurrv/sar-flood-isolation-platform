@@ -1,3 +1,0 @@
-# project proposal
-
-TODO
