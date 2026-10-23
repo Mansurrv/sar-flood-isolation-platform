@@ -1,3 +1,0 @@
-# existing systems comparison
-
-TODO

@@ -102,17 +102,9 @@ priorities.
 - **YouTrack Project:** https://sar-flood-isolation.youtrack.cloud/agiles/204-0/current
 
 - **Documentation:** [`docs/`](docs/)
-  - [01. Project Proposal](docs/01_project_proposal.md)
-  - [02. Evidence of Relevance](docs/02_evidence_of_relevance.md)
-  - [03. Literature Review](docs/03_literature_review.md)
-  - [04. Existing Systems Comparison](docs/04_existing_systems_comparison.md)
-  - [05. Technology Comparison](docs/05_technology_comparison.md)
-  - [06. Requirements](docs/06_requirements.md)
-  - [07. Architecture](docs/07_architecture.md)
-  - [08. UX / Prototype](docs/08_ux_prototype.md)
-  - [09. Verification Plan](docs/09_verification_plan.md)
-  - [10. Project Management & Risks](docs/10_project_management_risks.md)
-  - [11. Supervisor Feedback](docs/11_supervisor_feedback.md)
+  - [11. Project Management & Risks](docs/11_project_management_risks.md)
+  - Proposal, research, requirements, architecture, UX, and verification
+    deliverables are tracked in their corresponding YouTrack issues.
 - **Architecture Decision Records:** [`docs/adr/`](docs/adr/)
 - **Diagrams:** [`docs/diagrams/`](docs/diagrams/)
 - **Prototype:** [`docs/prototype/`](docs/prototype/)
@@ -132,8 +124,7 @@ sar-flood-isolation-platform/
 │   ├── diagrams/
 │   │   ├── source/          # Editable Mermaid / draw.io sources
 │   │   └── exports/         # Readable SVG / PNG / PDF exports
-│   ├── prototype/           # UX mockups and API examples
-│   └── 01–11_*.md           # Proposal, research, comparisons, requirements, design
+│   └── 11_project_management_risks.md
 ├── src/
 │   ├── backend/             # FastAPI application
 │   ├── frontend/            # React application
