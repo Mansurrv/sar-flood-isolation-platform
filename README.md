@@ -102,9 +102,16 @@ priorities.
 - **YouTrack Project:** https://sar-flood-isolation.youtrack.cloud/agiles/204-0/current
 
 - **Documentation:** [`docs/`](docs/)
+  - [01. Project Proposal](docs/01_project_proposal.md)
+  - [02. Literature Review](docs/02_literature_review.md)
+  - [03. Existing Systems Comparison](docs/03_existing_systems_comparison.md)
+  - [04. Technology Comparison](docs/04_technology_comparison.md)
+  - [05. Requirements](docs/05_requirements.md)
+  - [06. Architecture](docs/06_architecture.md)
+  - [07. Verification Plan](docs/07_verification_plan.md)
+  - [09. Interviews](docs/09_interviews.md)
+  - [10. UX Prototype](docs/10_ux_prototype.md)
   - [11. Project Management & Risks](docs/11_project_management_risks.md)
-  - Proposal, research, requirements, architecture, UX, and verification
-    deliverables are tracked in their corresponding YouTrack issues.
 - **Architecture Decision Records:** [`docs/adr/`](docs/adr/)
 - **Diagrams:** [`docs/diagrams/`](docs/diagrams/)
 - **Prototype:** [`docs/prototype/`](docs/prototype/)
@@ -120,11 +127,21 @@ sar-flood-isolation-platform/
 │   └── requirements.txt     # Python dependency definitions
 ├── data/                    # Local/private data; contents are ignored
 ├── docs/
+│   ├── 01_project_proposal.md
+│   ├── 02_literature_review.md
+│   ├── 03_existing_systems_comparison.md
+│   ├── 04_technology_comparison.md
+│   ├── 05_requirements.md
+│   ├── 06_architecture.md
+│   ├── 07_verification_plan.md
+│   ├── 09_interviews.md
+│   ├── 10_ux_prototype.md
+│   ├── 11_project_management_risks.md
 │   ├── adr/                 # Architecture decision records
 │   ├── diagrams/
 │   │   ├── source/          # Editable Mermaid / draw.io sources
 │   │   └── exports/         # Readable SVG / PNG / PDF exports
-│   └── 11_project_management_risks.md
+│   └── prototype/           # Interactive UX prototype and documentation
 ├── src/
 │   ├── backend/             # FastAPI application
 │   ├── frontend/            # React application
