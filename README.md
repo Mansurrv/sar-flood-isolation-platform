@@ -37,11 +37,11 @@ priorities.
 
 ## 4. Team Members and Responsibilities
 
-| Name | Role | Responsibilities |
-|------|------|------------------|
-| Mansur (Mansurrv) | Backend / SAR Lead | GEE pipeline, threshold algorithms, metrics, FastAPI |
-| Nurdaulet (nvrdavlet) | Frontend / GIS / PM Lead | React UI, OSM road graph, isolation count, YouTrack |
-| *[Supervisor Name]* | Supervisor | Methodology, review, acceptance |
+| Участник | Роль | Ответственность |
+|----------|------|-----------------|
+| Backend / SAR Lead | GEE pipeline, threshold algorithms, metrics, FastAPI |
+| Frontend / GIS / PM Lead | React UI, OSM road graph, isolation count, YouTrack |
+| Supervisor | Methodology, review, acceptance |
 
 ---
 
@@ -65,7 +65,7 @@ priorities.
 | Component | Status |
 |-----------|--------|
 | Project proposal | ✅ |
-| Evidence of relevance | ✅ |
+| Evidence of relevance (interviews) | ✅ |
 | Literature review | ✅ |
 | Existing system comparison | ✅ |
 | Technology comparison | ✅ |
@@ -102,17 +102,9 @@ priorities.
 - **YouTrack Project:** https://sar-flood-isolation.youtrack.cloud/agiles/204-0/current
 
 - **Documentation:** [`docs/`](docs/)
-  - [01. Project Proposal](docs/01_project_proposal.md)
-  - [02. Evidence of Relevance](docs/02_evidence_of_relevance.md)
-  - [03. Literature Review](docs/03_literature_review.md)
-  - [04. Existing Systems Comparison](docs/04_existing_systems_comparison.md)
-  - [05. Technology Comparison](docs/05_technology_comparison.md)
-  - [06. Requirements](docs/06_requirements.md)
-  - [07. Architecture](docs/07_architecture.md)
-  - [08. UX / Prototype](docs/08_ux_prototype.md)
-  - [09. Verification Plan](docs/09_verification_plan.md)
-  - [10. Project Management & Risks](docs/10_project_management_risks.md)
-  - [11. Supervisor Feedback](docs/11_supervisor_feedback.md)
+  - [11. Project Management & Risks](docs/11_project_management_risks.md)
+  - Proposal, research, requirements, architecture, UX, and verification
+    deliverables are tracked in their corresponding YouTrack issues.
 - **Architecture Decision Records:** [`docs/adr/`](docs/adr/)
 - **Diagrams:** [`docs/diagrams/`](docs/diagrams/)
 - **Prototype:** [`docs/prototype/`](docs/prototype/)
@@ -132,8 +124,7 @@ sar-flood-isolation-platform/
 │   ├── diagrams/
 │   │   ├── source/          # Editable Mermaid / draw.io sources
 │   │   └── exports/         # Readable SVG / PNG / PDF exports
-│   ├── prototype/           # UX mockups and API examples
-│   └── 01–11_*.md           # Proposal, research, comparisons, requirements, design
+│   └── 11_project_management_risks.md
 ├── src/
 │   ├── backend/             # FastAPI application
 │   ├── frontend/            # React application
@@ -143,3 +134,44 @@ sar-flood-isolation-platform/
 │   └── unit/                # Unit tests
 ├── .gitignore               # Secret, data, build, and local-file exclusions
 └── README.md
+```
+
+Keep editable diagram sources beside their exports. Add only synthetic or
+sanitized materials to `tests/fixtures/`; keep credentials and private data
+outside the repository. The current `src/` and `tests/` directories are
+scaffolding; runnable application code and automated tests have not been added.
+
+## 9. Setup, Execution, and Testing
+
+> ⚠️ **Note:** These instructions will be fully activated **as soon as
+> runnable code is available**. Currently only the environment skeleton
+> exists.
+
+### Prerequisites
+
+- Python 3.11+
+- Node.js 20+
+- Google Earth Engine account
+- Docker + Docker Compose (optional)
+
+### Setup
+
+```bash
+# 1. Clone
+git clone https://github.com/mansurrv/sar-flood-isolation-platform.git
+cd sar-flood-isolation-platform
+
+# 2. Backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r config/requirements.txt
+
+# 3. Environment (placeholder values only)
+cp config/.env.example config/.env
+# Replace placeholders locally; never commit config/.env or credential files.
+
+```
+
+The backend and frontend commands become runnable after their application
+manifests and code are added. Run automated tests with `pytest` once tests are
+present.
