@@ -9,6 +9,7 @@ earthengine-api
 geopandas
 osmnx
 rasterio
+numpy
 
 # Testing
 pytest
