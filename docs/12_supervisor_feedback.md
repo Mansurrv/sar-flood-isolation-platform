@@ -1,49 +1,28 @@
 # Supervisor Feedback
 
-## Purpose
+**Supervisor:** Alua Myrzakerimova
+**Project:** SAR Flood Mapping Platform
+**Team:** Nurdaulet Aitynbek, Mansur Serikbai
 
-Use this document to record supervisor reviews, decisions, and follow-up
-actions for the SAR Flood Isolation Platform. Add feedback only after it has
-been received; do not treat the template prompts below as completed review or
-approval.
+## Overall Assessment and Progress
 
-## Review record
+The team has done good work on the new version of the platform. The comprehensive approach is encouraging: the team did not simply implement the basic algorithms, but also integrated graph analysis (OSMnx/NetworkX) to assess settlement isolation (DIP-19). This is a very strong practical case for the examination committee. The architecture, with an asynchronous backend and a run history stored in SQLite, looks reliable and professional.
 
-| Review date | Review format | Deliverables reviewed | Supervisor |
-| --- | --- | --- | --- |
-| _To be completed_ | _To be completed_ | _To be completed_ | _To be completed_ |
+## What Has Been Done Well
 
-## General feedback
+- **Choice of algorithms (DIP-14 – DIP-18):** Using classical and adaptive Otsu thresholding together with change detection is the de facto standard for Sentinel-1 radar data. The logic is built correctly.
+- **Organisation of work:** It is good that each task is handled in a separate branch and linked to YouTrack; the code is clean and tests have been prepared.
+- **Interface:** GeoJSON upload and status indicators for asynchronous tasks make the interface intuitive.
 
-_Record the supervisor's overall comments, including strengths, concerns, and
-recommendations._
+## Current Status of Google Earth Engine
 
-## Feedback by deliverable
+I understand the situation with the pending authorisation of the Google Cloud project. At this stage it is not critical: the main point is that the software pipeline is ready to accept real data. As soon as access is granted, the first run on real data should be carried out.
 
-| Deliverable | Supervisor feedback | Agreed change or response | Status |
-| --- | --- | --- | --- |
-| Project proposal and relevance evidence | _Pending review_ | _Pending_ | Not reviewed |
-| Literature and existing-systems reviews | _Pending review_ | _Pending_ | Not reviewed |
-| Technology comparison and requirements | _Pending review_ | _Pending_ | Not reviewed |
-| Architecture and diagrams | _Pending review_ | _Pending_ | Not reviewed |
-| Verification and evaluation plan | _Pending review_ | _Pending_ | Not reviewed |
-| UX prototype | _Pending review_ | _Pending_ | Not reviewed |
-| Project management and risks | _Pending review_ | _Pending_ | Not reviewed |
-| Pre-defense demo | _Pending review_ | _Pending_ | Not reviewed |
+## Recommendations for the Next Version (for the Defence)
 
-## Action items
+- Add tooltips to the interface with a short description of each algorithm, so that the committee immediately understands the difference between the methods during the defence.
+- When displaying results on the map, show brief statistics: the flooded area (in km²) and the number of blocked road segments.
 
-| ID | Action | Owner | Due date | Status | Evidence or related issue |
-| --- | --- | --- | --- | --- | --- |
-| _Add after review_ | _To be agreed_ | _To be assigned_ | _To be agreed_ | Open | _Link issue or commit_ |
+## Summary
 
-## Decisions and approval
-
-_Record decisions, scope changes, and any explicit approval. Note which
-deliverables were approved and any conditions that remain._
-
-## Review history
-
-| Date | Update |
-| --- | --- |
-| _YYYY-MM-DD_ | Initial feedback-record template created; supervisor review is pending. |
+A good interim result. The team should proceed to the final tests as soon as Google Earth Engine access is granted.
